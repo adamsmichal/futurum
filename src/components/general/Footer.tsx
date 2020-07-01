@@ -28,10 +28,15 @@ const FooterContainer = styled.footer`
 `;
 
 const FooterInfoWrapper = styled.div`
-  width: 200px;
+  width: 150px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.tablet}) {
+    width: 200px;
+  }
 `;
 
 const ProjectLink = styled.a`
