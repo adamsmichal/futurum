@@ -141,7 +141,7 @@ const Image = styled.img`
 
 const TextWrapper = styled.div`
   padding: 0 ${({ theme }) => theme.space.l};
-  margin-top: ${({ theme }) => theme.space.l};
+  margin: ${({ theme }) => theme.space.l} 0;
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.phone}) {
@@ -224,7 +224,7 @@ const housePage: React.FC<IHousePageProps> = ({ pageContext: { page } }) => {
 
   const settings = {
     buttons: true,
-    bullets: false,
+    bullets: true,
     organicArrows: true,
   };
 
