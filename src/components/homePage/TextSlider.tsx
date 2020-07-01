@@ -11,7 +11,6 @@ interface ITextSliderProps {
 
 const SliderContainer = styled.section<ITextSliderProps>`
   width: 100vw;
-  margin-bottom: ${({ theme }) => theme.space.m};
   background-image: url(${props => props.data});
   background-repeat: no-repeat;
   background-position: center center;
@@ -28,7 +27,6 @@ const SliderContainer = styled.section<ITextSliderProps>`
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.phone}) {
     & .slider {
-      margin-bottom: ${({ theme }) => theme.space.l};
       font-size: 3rem;
     }
   }

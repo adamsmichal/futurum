@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Link from "gatsby-link";
+import { useSpring, animated } from "react-spring";
 
 const NavigationWrapper = styled.nav`
   position: sticky;
@@ -96,14 +97,13 @@ interface IMenuProps {
   clicked: boolean;
 }
 
-const Menu = styled.div<IMenuProps>`
+const Menu = styled(animated.div)<IMenuProps>`
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   padding: 20vh 5vw 30vh 55vw;
-  display: ${props => (props.clicked ? "flex" : "none")};
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
@@ -147,6 +147,11 @@ const DesktopNavLink = styled.div`
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const menuAnimation = useSpring({
+    display: isOpen ? "flex" : "none",
+    left: isOpen ? "0" : "100vw",
+  });
+
   return (
     <>
       <NavigationWrapper>
@@ -162,7 +167,7 @@ const Navigation: React.FC = () => {
           <BtnBars position="middle" clicked={isOpen} />
           <BtnBars position="low" clicked={isOpen} />
         </Btn>
-        <Menu clicked={isOpen}>
+        <Menu style={menuAnimation} clicked={isOpen}>
           <NavLink to="/localization">Lokalizacja</NavLink>
           <NavLink to="/details">Szczegóły</NavLink>
           <NavLink to="/houseList">Domy</NavLink>

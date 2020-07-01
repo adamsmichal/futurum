@@ -78,6 +78,7 @@ const SliderBtn = styled(Link)`
   width: 30vw;
   height: 40px;
   margin: 0 auto;
+  padding: 0 ${({ theme }) => theme.space.xs};
   line-height: 40px;
   color: ${({ theme }) => theme.colors.white};
   text-align: center;

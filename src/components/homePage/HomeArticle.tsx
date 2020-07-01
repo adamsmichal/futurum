@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSpring, animated } from "react-spring";
 
 interface IHomeArticleWrapperProps {
   isOpen: boolean;
@@ -7,26 +8,27 @@ interface IHomeArticleWrapperProps {
 
 const HomeArticleWrapper = styled.article<IHomeArticleWrapperProps>`
   position: relative;
-  height: ${props => (props.isOpen ? "70vh" : "45vh")};
+  height: 50vh;
   width: 100%;
   margin-bottom: ${({ theme }) => theme.space.xs};
   background-color: ${({ theme }) => theme.colors.white};
-  margin-bottom: 40px;
+  margin: ${({ theme }) => theme.space.m} 0;
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet}) {
-    height: ${props => (props.isOpen ? "65vh" : "60vh")};
+    height: 60vh;
+    margin: ${({ theme }) => theme.space.l} 0;
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tabletLarge}) {
     height: 52vh;
-    margin-bottom: 80px;
+    margin-bottom: ${({ theme }) => theme.space.xxl};
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.desktop}) {
-    height: 80vh;
+    height: 70vh;
     padding: ${({ theme }) => theme.space.ml} ${({ theme }) => theme.space.l};
   }
 `;
@@ -35,30 +37,27 @@ interface ITextWrapperProps {
   isOpen: boolean;
 }
 
-const TextWrapper = styled.div<ITextWrapperProps>`
+const TextWrapper = styled(animated.div)<ITextWrapperProps>`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: 10px;
   width: 80%;
-  height: ${props => (props.isOpen ? "80%" : "40%")};
   padding: ${({ theme }) => theme.space.ml} ${({ theme }) => theme.space.l};
   background-color: ${({ theme }) => theme.colors.white};
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet}) {
-    height: ${props => (props.isOpen ? "60%" : "40%")};
-  }
-
-  @media only screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.tabletLarge}) {
-    height: ${props => (props.isOpen ? "60%" : "40%")};
     padding: ${({ theme }) => theme.space.l} ${({ theme }) => theme.space.xl};
   }
 
   @media only screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.tabletLarge}) {
+    padding: ${({ theme }) => theme.space.l} ${({ theme }) => theme.space.xxl};
+  }
+
+  @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.desktop}) {
-    height: ${props => (props.isOpen ? "90%" : "50%")};
     bottom: 0;
   }
 `;
@@ -73,38 +72,43 @@ const ArticleTitle = styled.h2`
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet}) {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tabletLarge}) {
+    font-size: 3.5rem;
+  }
+
+  @media only screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.desktop}) {
     font-size: 3rem;
   }
 `;
 
-const ArticleText = styled.p<ITextWrapperProps>`
-  font-size: 1.3rem;
+const ArticleText = styled(animated.p)<ITextWrapperProps>`
+  font-size: 1.2rem;
   font-weight: ${({ theme }) => theme.fontWeights.light};
   color: ${({ theme }) => theme.colors.greeyP};
   line-height: 2rem;
   height: 80%;
-  overflow: ${props => (props.isOpen ? "visible" : "hidden")};
+  overflow: hidden;
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet}) {
-    font-size: 1.7rem;
-  }
-
-  @media only screen and (min-width: ${({ theme }) =>
-      theme.breakpoints.tabletLarge}) {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
     line-height: 3.4rem;
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tabletLarge}) {
-    font-size: 2.2rem;
-    line-height: 3.4rem;
+    font-size: 2.8rem;
+    line-height: 4rem;
+  }
+
+  @media only screen and (min-width: ${({ theme }) =>
+      theme.breakpoints.desktop}) {
+    font-size: 2rem;
   }
 `;
 
@@ -141,12 +145,23 @@ interface IHomeArticleProps {
 const HomeArticle: React.FC<IHomeArticleProps> = ({ image, text, title }) => {
   const [isOpen, setOpen] = useState(false);
 
+  const textWrapperAnimation = useSpring({
+    height: isOpen ? "90%" : "40%",
+  });
+
+  const textAnimation = useSpring({
+    overflow: isOpen ? "visible" : "hidden",
+    delay: 100,
+  });
+
   return (
     <HomeArticleWrapper isOpen={isOpen}>
       <img src={image} alt="house" />
-      <TextWrapper isOpen={isOpen}>
+      <TextWrapper style={textWrapperAnimation} isOpen={isOpen}>
         <ArticleTitle>{title}</ArticleTitle>
-        <ArticleText isOpen={isOpen}>{text}</ArticleText>
+        <ArticleText style={textAnimation} isOpen={isOpen}>
+          {text}
+        </ArticleText>
         <ArticleBtn onClick={() => setOpen(!isOpen)}>
           {isOpen ? "Mniej >" : "Więcej >"}
         </ArticleBtn>

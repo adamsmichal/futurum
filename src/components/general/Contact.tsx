@@ -4,36 +4,36 @@ import { Formik } from "formik";
 import axios from "axios";
 
 const ContactWrapper = styled.section`
+  min-height: calc(100vh - 100px);
   padding: ${({ theme }) => theme.space.l};
-  margin-bottom: ${({ theme }) => theme.space.m};
   color: ${({ theme }) => theme.colors.greeyH};
   font-family: ${({ theme }) => theme.fontFamily.main};
   font-size: 1.1rem;
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  text-transform: uppercase;
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.phone}) {
     font-size: 2rem;
-    margin-bottom: ${({ theme }) => theme.space.xxxl};
+    margin-bottom: ${({ theme }) => theme.space.xl};
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet}) {
     font-size: 2.3rem;
-    margin-bottom: ${({ theme }) => theme.space.xxxxl};
+    margin-bottom: ${({ theme }) => theme.space.xxl};
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tabletLarge}) {
     padding: ${({ theme }) => theme.space.xxl};
+    margin-bottom: 0;
     font-size: 2.6rem;
     line-height: 40px;
   }
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.desktop}) {
-    height: calc(100vh - 132px);
+    min-height: calc(100vh - 132px);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.7fr 1.3fr;

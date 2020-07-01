@@ -36,7 +36,7 @@ const IndexPage: React.FC = () => {
       <ThemeProvider theme={theme}>
         <Navigation />
         <HomeWrapper>
-          <SEO title="Futurum" />
+          <SEO title="Strona główna" />
           <TextSlider />
           <HomeArticlesGrid>
             {data.allMdx.nodes.map(
