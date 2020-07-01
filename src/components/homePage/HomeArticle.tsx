@@ -82,13 +82,13 @@ const ArticleTitle = styled.h2`
   }
 `;
 
-const ArticleText = styled.p`
+const ArticleText = styled.p<ITextWrapperProps>`
   font-size: 1.3rem;
   font-weight: ${({ theme }) => theme.fontWeights.light};
   color: ${({ theme }) => theme.colors.greeyP};
-  line-height: 2.2rem;
+  line-height: 2rem;
   height: 80%;
-  overflow: hidden;
+  overflow: ${props => (props.isOpen ? "visible" : "hidden")};
 
   @media only screen and (min-width: ${({ theme }) =>
       theme.breakpoints.tablet}) {
@@ -146,7 +146,7 @@ const HomeArticle: React.FC<IHomeArticleProps> = ({ image, text, title }) => {
       <img src={image} alt="house" />
       <TextWrapper isOpen={isOpen}>
         <ArticleTitle>{title}</ArticleTitle>
-        <ArticleText>{text}</ArticleText>
+        <ArticleText isOpen={isOpen}>{text}</ArticleText>
         <ArticleBtn onClick={() => setOpen(!isOpen)}>
           {isOpen ? "Mniej >" : "Więcej >"}
         </ArticleBtn>
